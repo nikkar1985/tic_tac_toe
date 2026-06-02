@@ -27,4 +27,21 @@ margin-bottom: 20px; font-weight: bold;
   margin: 0 auto;
 }
 
-.cell {}
+.cell {
+width :   100px;
+  height: 100px;
+  background-color:#2a2a35;
+  border-radius:8px;
+  font-weight: bold;
+  display: flex;
+  justify-content : center;
+  align-items: center;
+  cursor: pointer;
+  
+}
+
+
+.cell:hover {background-color:#3f3f50;}
+.cell.taken {cursor: not-allowed;}
+.hidden {display: none;}
+.disabled {pointer-events: none;}
