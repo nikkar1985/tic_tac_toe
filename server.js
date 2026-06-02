@@ -60,5 +60,28 @@ const currentSymbol = game.players[0] === socket.id ? 'X' : 'O';
   }
   
 });
-      
+
+
+socket.on('disconnect', () => {  
+    
+console.log(`User disconnected : ${socket.id}`);
+
+    if (waitingPlayer && waitingPlayer.id === socket.id) {
+
+    waitingPlayer= null ;
+    }
+
+for (const room in games) {
+if (games[room].players.includes(socket.id)) {
+
+socket.to(room).emit('opponentLeft');
+delete games[room];
+    }
+    }
+
+    
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log(`Server runnin on Port ${PORT}`));
   
