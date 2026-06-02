@@ -1,14 +1,13 @@
-{"name" : "tic-tac-toe",
-  "version" : "1.0.0",
-  "description" : "Real time turn based tic tac toe ",
+{
+  "name": "tic-tac-toe-online",
+  "version": "1.0.0",
+  "description": "Real-time Turn Based Tic-Tac-Toe",
   "main": "server.js",
-  "scripts":{
-   "start": "node server.js"
-    
+  "scripts": {
+    "start": "node server.js"
   },
-
-  "depedencies" : {
+  "dependencies": {
     "express": "^4.19.2",
-        "socket.io": "^4.17.5"
+    "socket.io": "^4.7.5"
   }
 }
