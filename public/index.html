@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang=en> 
+<title>
+Multiplayer Tic Tac Toe
+  
+</title>
+  <link rel = "stylesheet" href="style.css">
+<body>
+<div class="game-container">
+<h1>Multiplayer Τρίλιζα  </h1>
+<div id="status"> Σύνδεση στο server </div>
+<div id="board" class="board hidden">
+
+  <div class="cell" data-index="0">  </div>
+
+  <div class="cell" data-index="1">  </div>
+
+  <div class="cell" data-index="2">  </div>
+
+  <div class="cell" data-index="3">  </div>
+
+  <div class="cell" data-index="4">  </div>
+
+  <div class="cell" data-index="5">  </div>
+
+  <div class="cell" data-index="6">  </div>
+
+    <div class="cell" data-index="7">  </div>
+
+    <div class="cell" data-index="8">  </div>
+
+
+</div>
+</div>
+  <script src="/socket.io/socket.io.js"> </scipt>
+
+<script>
+
+const socket = io();
+    let mySymbol = null ; 
+    let isMyTurn = false ;
+    let currentRoom = null ;
+    
+const statusDiv =document.getElementById('status');
+const boardDiv = document.getElementById('board');
+    const cells = document.querySelectorAll('.cell');
+
+    socket.on('waiting',(msg) => {
+
+      statusDiv.textcontent =msg;
+    } );
+
+    socket.on('gameStart', ({room, symbol, myTurn}) => {
+      currentRoom = room;
+      mySymbol = symbol;
+      isMyTurn = myTurn;
+      boardDiv.classList.remove('hidden');
+      updateStatus();
+    });
+
+    socket.on('moveMade', ({board, turn}) => {
+      board.forEach((val, idx)=> {
+     cells[idx].textContent = val;
+        if (val) cells[idx].classList.add('taken');
+      });
+
+
+      isMyTurn =(turn === socket.id);
+   if(!checkWinner(board) {
+     updateStatus();
+   }
+      
+    });
+
+
+    socket.on('opponentLeft', () => {
+
+      statusDiv.textContent = " Ο αντίπαλος αποσυνδέθηκε. Παίξατε !" ;
+      boardDiv.classList.add('disabled');
+    });
+
+    cells.forEach(cell=> {
+   cell.addEventListener('click', () => {
+ const index = cell.getAttribute('data-index');
+     if (isMyTurn && !cell.textContent) {
+
+       socket.emit('makeMove', {room: currentRoom, index: parseInt(index)
+     }
+
+     
+   }
+      
+    }
+  
+  </script>
+
+  
+
+
+  
+</div>
+  
+
+  
+</div>
+
+  
+</body>
+
+
+  
+  
+</html>
